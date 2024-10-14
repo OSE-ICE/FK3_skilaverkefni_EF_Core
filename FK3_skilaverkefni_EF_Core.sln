@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FK3_skilaverkefni_EF_Core", "FK3_skilaverkefni_EF_Core\FK3_skilaverkefni_EF_Core.csproj", "{086CEF57-BB6F-41FC-9410-9BD853F41C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{086CEF57-BB6F-41FC-9410-9BD853F41C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086CEF57-BB6F-41FC-9410-9BD853F41C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086CEF57-BB6F-41FC-9410-9BD853F41C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086CEF57-BB6F-41FC-9410-9BD853F41C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F9B0E937-6402-4A7E-8E7A-E935D41A16FF}
+	EndGlobalSection
+EndGlobal
