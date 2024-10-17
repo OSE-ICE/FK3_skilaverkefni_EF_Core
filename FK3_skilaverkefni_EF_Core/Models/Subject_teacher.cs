@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FK3_skilaverkefni_EF_Core.Models
 {
     public class Subject_teacher
     {
-        public required List<Subjects> Subject_Id { get; set; }
-        public required List<Teachers> Teacher_Id { get; set; }
+        [Key, Column(Order = 0)]
+        public int SubjectId { get; set; }
+
+        [Key, Column(Order = 1)]
+        public int TeacherId { get; set; }
+
+        // Navigation properties
+        public required Subjects Subject { get; set; }
+        public required Teachers Teacher { get; set; }
     }
 }

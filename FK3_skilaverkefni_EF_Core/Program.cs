@@ -8,7 +8,7 @@ namespace FK3_skilaverkefni_EF_Core
     {
         static void Main(string[] args)
         {
-         
+         Console.WriteLine("Hello World!");
         }
     }
 }
