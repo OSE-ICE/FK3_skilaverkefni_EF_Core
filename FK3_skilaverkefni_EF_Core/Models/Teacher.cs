@@ -15,6 +15,5 @@ namespace FK3_skilaverkefni_EF_Core.Models
         public string? Last_Name { get; set; }
         public List<Subject> Subjects { get; set; } = new List<Subject>();
 
-        public string? Address { get; set; } 
     }
 }
