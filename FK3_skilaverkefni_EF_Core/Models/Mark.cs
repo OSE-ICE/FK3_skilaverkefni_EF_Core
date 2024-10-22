@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FK3_skilaverkefni_EF_Core.Models
 {
-    public class Marks
+    public class Mark
     {
         public int Id { get; set; }
-        public required List<Students> StudentId { get; set; }
-        public required List<Subjects> Subject_id { get; set; }
+        public required List<Student> StudentId { get; set; }
+        public required List<Subject> Subject_id { get; set; }
         public DateTime Date { get; set; }
-        public int Mark { get; set; }
+        public int Grade { get; set; }
     }
 }

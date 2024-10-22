@@ -18,7 +18,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Mark = table.Column<int>(type: "int", nullable: false)
+                    Grade = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,14 +47,14 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     First_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Last_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MarksId = table.Column<int>(type: "int", nullable: true)
+                    MarkId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.StudentId);
                     table.ForeignKey(
-                        name: "FK_Students_Marks_MarksId",
-                        column: x => x.MarksId,
+                        name: "FK_Students_Marks_MarkId",
+                        column: x => x.MarkId,
                         principalTable: "Marks",
                         principalColumn: "Id");
                 });
@@ -66,14 +66,14 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MarksId = table.Column<int>(type: "int", nullable: true)
+                    MarkId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subjects_Marks_MarksId",
-                        column: x => x.MarksId,
+                        name: "FK_Subjects_Marks_MarkId",
+                        column: x => x.MarkId,
                         principalTable: "Marks",
                         principalColumn: "Id");
                 });
@@ -85,61 +85,61 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentsStudentId = table.Column<int>(type: "int", nullable: true)
+                    StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Groups_Students_StudentsStudentId",
-                        column: x => x.StudentsStudentId,
+                        name: "FK_Groups_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subject_teachers",
+                name: "SubjectTeacher",
                 columns: table => new
                 {
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false)
+                    SubjectsId = table.Column<int>(type: "int", nullable: false),
+                    TeachersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subject_teachers", x => new { x.SubjectId, x.TeacherId });
+                    table.PrimaryKey("PK_SubjectTeacher", x => new { x.SubjectsId, x.TeachersId });
                     table.ForeignKey(
-                        name: "FK_Subject_teachers_Subjects_SubjectId",
-                        column: x => x.SubjectId,
+                        name: "FK_SubjectTeacher_Subjects_SubjectsId",
+                        column: x => x.SubjectsId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Subject_teachers_Teachers_TeacherId",
-                        column: x => x.TeacherId,
+                        name: "FK_SubjectTeacher_Teachers_TeachersId",
+                        column: x => x.TeachersId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_StudentsStudentId",
+                name: "IX_Groups_StudentId",
                 table: "Groups",
-                column: "StudentsStudentId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_MarksId",
+                name: "IX_Students_MarkId",
                 table: "Students",
-                column: "MarksId");
+                column: "MarkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subject_teachers_TeacherId",
-                table: "Subject_teachers",
-                column: "TeacherId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Subjects_MarksId",
+                name: "IX_Subjects_MarkId",
                 table: "Subjects",
-                column: "MarksId");
+                column: "MarkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubjectTeacher_TeachersId",
+                table: "SubjectTeacher",
+                column: "TeachersId");
         }
 
         /// <inheritdoc />
@@ -149,7 +149,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Subject_teachers");
+                name: "SubjectTeacher");
 
             migrationBuilder.DropTable(
                 name: "Students");

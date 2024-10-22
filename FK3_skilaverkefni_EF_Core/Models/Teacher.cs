@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace FK3_skilaverkefni_EF_Core.Models
 {
-    public class Students
+    public class Teacher
     {
         [Key]
-        public required int StudentId { get; set; }
+        public int Id { get; set; }
         public string? First_Name { get; set; }
         public string? Last_Name { get; set; }
-        public required List<Groups> Group_Id { get; set; }
+        public List<Subject> Subjects { get; set; } = new List<Subject>();
+
+        public string? Address { get; set; } 
     }
 }

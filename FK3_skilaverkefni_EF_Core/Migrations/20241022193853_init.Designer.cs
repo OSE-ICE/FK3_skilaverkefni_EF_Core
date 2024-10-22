@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FK3_skilaverkefni_EF_Core.Migrations
 {
     [DbContext(typeof(SchoolDBContext))]
-    [Migration("20241017101923_init")]
+    [Migration("20241022193853_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Groups", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,17 +36,17 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentsStudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentsStudentId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Marks", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Mark", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Mark")
+                    b.Property<int>("Grade")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -65,7 +65,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     b.ToTable("Marks");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Students", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Student", b =>
                 {
                     b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd()
@@ -79,34 +79,17 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     b.Property<string>("Last_Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MarksId")
+                    b.Property<int?>("MarkId")
                         .HasColumnType("int");
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("MarksId");
+                    b.HasIndex("MarkId");
 
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subject_teacher", b =>
-                {
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.HasKey("SubjectId", "TeacherId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("Subject_teachers");
-                });
-
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subjects", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subject", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,7 +97,7 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("MarksId")
+                    b.Property<int?>("MarkId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -122,12 +105,12 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarksId");
+                    b.HasIndex("MarkId");
 
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Teachers", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,54 +129,65 @@ namespace FK3_skilaverkefni_EF_Core.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Groups", b =>
+            modelBuilder.Entity("SubjectTeacher", b =>
                 {
-                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Students", null)
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeachersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubjectsId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("SubjectTeacher");
+                });
+
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Group", b =>
+                {
+                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Student", null)
                         .WithMany("Group_Id")
-                        .HasForeignKey("StudentsStudentId");
+                        .HasForeignKey("StudentId");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Students", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Student", b =>
                 {
-                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Marks", null)
+                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Mark", null)
                         .WithMany("StudentId")
-                        .HasForeignKey("MarksId");
+                        .HasForeignKey("MarkId");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subject_teacher", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subject", b =>
                 {
-                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Subjects", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Teachers", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subject");
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Subjects", b =>
-                {
-                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Marks", null)
+                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Mark", null)
                         .WithMany("Subject_id")
-                        .HasForeignKey("MarksId");
+                        .HasForeignKey("MarkId");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Marks", b =>
+            modelBuilder.Entity("SubjectTeacher", b =>
+                {
+                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FK3_skilaverkefni_EF_Core.Models.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Mark", b =>
                 {
                     b.Navigation("StudentId");
 
                     b.Navigation("Subject_id");
                 });
 
-            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Students", b =>
+            modelBuilder.Entity("FK3_skilaverkefni_EF_Core.Models.Student", b =>
                 {
                     b.Navigation("Group_Id");
                 });
