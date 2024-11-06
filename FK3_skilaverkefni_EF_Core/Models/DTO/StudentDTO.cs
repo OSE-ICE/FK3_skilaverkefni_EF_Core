@@ -5,16 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FK3_skilaverkefni_EF_Core.Models
+namespace FK3_skilaverkefni_EF_Core.Models.DTO
 {
-    public class Teacher
+    internal class StudentDTO
     {
         [Key]
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         public string? First_Name { get; set; }
         public string? Last_Name { get; set; }
-        public string? SSID { get; set; }
-        public List<Subject> Subjects { get; set; } = new List<Subject>();
-
+        public List<Group> Group_Id { get; set; } = new List<Group>();
     }
 }
