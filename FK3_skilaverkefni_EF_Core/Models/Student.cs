@@ -13,6 +13,7 @@ namespace FK3_skilaverkefni_EF_Core.Models
         public int StudentId { get; set; }
         public string? First_Name { get; set; }
         public string? Last_Name { get; set; }
+        public string? SSID { get; set; }
         public List<Group> Group_Id { get; set; } = new List<Group>();
     }
 }
